@@ -28,11 +28,11 @@
             <div class="map-marker__icon">🍯</div>
           </div>
 
-          <template #popup>
-            <div class="map-popup">
-              <ApiaryCard :apiary="apiary" />
-            </div>
-          </template>
+<!--          <template #popup>-->
+<!--            <div class="map-popup">-->
+<!--              <ApiaryCard :apiary="apiary" />-->
+<!--            </div>-->
+<!--          </template>-->
         </yandex-map-marker>
       </yandex-map>
 
@@ -59,9 +59,9 @@ import {
   YandexMapDefaultFeaturesLayer,
   YandexMapControls,
   YandexMapZoomControl,
-  YandexMapMarker,
-  type YMap,
+  YandexMapMarker
 } from 'vue-yandex-maps'
+import type { YMap } from '@yandex/ymaps3-types'
 import Section from '@/shared/ui/Section.vue'
 import ApiaryCard from '@/entities/apiary/ui/ApiaryCard.vue'
 import { APIARIES } from '@/shared/lib/constants'

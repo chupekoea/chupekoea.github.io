@@ -1,5 +1,6 @@
 import type { Product } from '@/entities/product/model/types'
 import type { Certificate } from '@/entities/certificate/model/types'
+import {Apiary} from "@/entities/apiary/model/types.ts";
 
 export const PRODUCTS: Product[] = [
   {
