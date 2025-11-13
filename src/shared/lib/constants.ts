@@ -63,19 +63,19 @@ export const CERTIFICATES: Certificate[] = [
   {
     id: 1,
     title: 'Сертификат соответствия ГОСТ',
-    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400',
+    image: '../images/delivery.png',
     issueDate: '2024-01-15'
   },
   {
     id: 2,
     title: 'Декларация о соответствии',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400',
+    image: '../images/delivery.png',
     issueDate: '2024-03-20'
   },
   {
     id: 3,
     title: 'Ветеринарное свидетельство',
-    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400',
+    image: '../images/delivery.png',
     issueDate: '2024-05-10'
   }
 ]
