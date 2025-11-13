@@ -5,10 +5,11 @@ import { createYmaps } from "vue-yandex-maps";
 // import { initializeApp } from 'firebase/app'
 // import { getFunctions } from 'firebase/functions'
 
+
 const app = createApp(App)
 
 app.use(createYmaps({
-    apikey: '26a1004c-2b56-4ac6-97b3-456d59be934c',
+    apikey: import.meta.env.VITE_API_KEY,
 }))
 
 app.mount('#app')
