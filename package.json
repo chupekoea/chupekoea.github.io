@@ -10,7 +10,9 @@
     },
     "dependencies": {
         "firebase": "^12.5.0",
+        "pinia": "^3.0.4",
         "vue": "^3.5.0",
+        "vue-router": "^4.6.3",
         "vue-yandex-maps": "^2.2.4",
         "vue3-carousel": "^0.3.4"
     },

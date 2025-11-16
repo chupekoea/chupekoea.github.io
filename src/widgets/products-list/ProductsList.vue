@@ -7,11 +7,14 @@
   </template>
 
   <script setup lang="ts">
+  import { storeToRefs } from 'pinia'
   import Section from '@/shared/ui/Section.vue'
   import ProductCard from '@/entities/product/ui/ProductCard.vue'
-  import { PRODUCTS } from '@/shared/lib/constants'
+  import { useProductsStore } from '@/app/stores/products'
 
-  const products = PRODUCTS
+  const productsStore = useProductsStore()
+  // Используем storeToRefs для сохранения реактивности
+  const { products } = storeToRefs(productsStore)
   </script>
 
   <style scoped lang="scss">

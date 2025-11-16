@@ -4,18 +4,19 @@
       <header class="header">
         <Container>
           <nav class="nav">
-            <div class="logo">🍯 Пасека "Золотой мёд"</div>
+            <router-link to="/" class="logo">🍯 Пасека "Золотой мёд"</router-link>
             <ul class="nav-menu">
-              <li><a href="#products">Каталог</a></li>
-              <li><a href="#certificates">Сертификаты</a></li>
-              <li><a href="#map">Пасеки</a></li>
-              <li><a href="#contacts">Контакты</a></li>
+              <li><a href="/#products">Каталог</a></li>
+              <li><a href="/#certificates">Сертификаты</a></li>
+              <li><a href="/#map">Пасеки</a></li>
+              <li><a href="/#contacts">Контакты</a></li>
+              <li><router-link to="/admin">Админ-панель</router-link></li>
             </ul>
           </nav>
         </Container>
       </header>
       <main>
-        <HomePage />
+        <router-view />
       </main>
       <footer class="footer">
         <Container>
@@ -27,7 +28,6 @@
   
   <script setup lang="ts">
   import Container from '@/shared/ui/Container.vue'
-  import HomePage from '@/pages/home/HomePage.vue'
   import CartWidget from "@/widgets/cart/CartWidget.vue";
   </script>
   
@@ -57,6 +57,7 @@
     font-size: 24px;
     font-weight: 700;
     color: #f5a623;
+    text-decoration: none;
   }
   
   .nav-menu {
@@ -68,8 +69,13 @@
       color: #2c3e50;
       font-weight: 500;
       transition: color 0.3s;
+      text-decoration: none;
   
       &:hover {
+        color: #f5a623;
+      }
+
+      &.router-link-active {
         color: #f5a623;
       }
     }
