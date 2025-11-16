@@ -1,5 +1,6 @@
 <template>
-  <div class="cart-widget">
+  <!-- Скрываем всю корзину, если продажи отключены -->
+  <div v-if="isFeatureEnabled('SALES_ENABLED')" class="cart-widget">
     <button class="cart-btn" @click="isOpen = !isOpen">
       🛒 Корзина ({{ itemsCount }})
     </button>
@@ -48,7 +49,7 @@
               <strong>Итого:</strong>
               <strong class="total-price">{{ totalPrice }} ₽</strong>
             </div>
-            <Button class="checkout-btn">
+            <Button class="checkout-btn" @click="showCheckoutForm = true">
               Оформить заказ
             </Button>
             <button class="clear-btn" @click="handleClear">
@@ -58,6 +59,13 @@
         </div>
       </div>
     </div>
+
+    <!-- Форма оформления заказа -->
+    <div v-if="showCheckoutForm" class="checkout-modal" @click.self="showCheckoutForm = false">
+      <div class="checkout-content">
+        <!-- ... существующая форма заказа ... -->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,10 +73,11 @@
 import { ref } from 'vue'
 import Button from '@/shared/ui/Button.vue'
 import { useCart } from '@/entities/cart/model/useCart'
-// import { httpsCallable } from 'firebase/functions'
-// import { functions } from '@/app/main'
+import { useFeatures } from '@/shared/composables/useFeatures'
 
+const { isFeatureEnabled } = useFeatures()
 const isOpen = ref(false)
+const showCheckoutForm = ref(false)
 const { cart: cartItems, removeFromCart, updateQuantity, clearCart, totalPrice, itemsCount } = useCart()
 
 const handleClear = () => {
@@ -76,24 +85,6 @@ const handleClear = () => {
     clearCart()
   }
 }
-
-// const sendOrder = httpsCallable(functions, 'sendOrderEmail')
-
-// const handleSubmitOrder = async () => {
-//   try {
-//     await sendOrder({
-//       customerName: orderForm.name,
-//       customerEmail: orderForm.email,
-//       customerPhone: orderForm.phone,
-//       items: cartItems.value,
-//       totalPrice: totalPrice.value
-//     })
-//     // Успех
-//   } catch (error) {
-//     console.error('Ошибка:', error)
-//   }
-// }
-
 </script>
 
 <style scoped lang="scss">

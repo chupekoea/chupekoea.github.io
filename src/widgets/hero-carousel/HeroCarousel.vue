@@ -8,7 +8,7 @@
                 <div class="hero-slide__content">
                   <h1 class="hero-slide__title">{{ slide.title }}</h1>
                   <p class="hero-slide__subtitle">{{ slide.subtitle }}</p>
-                  <Button variant="primary">Выбрать мёд</Button>
+                  <Button v-if="isSalesEnabled" variant="primary">Выбрать мёд</Button>
                 </div>
               </Container>
             </div>
@@ -28,8 +28,12 @@
   import Container from '@/shared/ui/Container.vue'
   import Button from '@/shared/ui/Button.vue'
   import { CAROUSEL_SLIDES } from '@/shared/lib/constants'
+  import {useFeatures} from "@/shared/composables/useFeatures.ts";
 
   const slides = CAROUSEL_SLIDES
+
+  const { isFeatureEnabled } = useFeatures()
+  const isSalesEnabled = isFeatureEnabled('SALES_ENABLED')
   </script>
   
   <style scoped lang="scss">

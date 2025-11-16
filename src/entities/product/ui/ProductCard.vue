@@ -2,41 +2,44 @@
   <div class="product-card">
     <div class="product-card__image-wrapper">
       <img :src="product.image" :alt="product.name" class="product-card__image" />
-      <div v-if="!product.inStock" class="product-card__badge">Нет в наличии</div>
+      <div v-if="!product.inStock && isSalesEnabled" class="product-card__badge">Нет в наличии</div>
     </div>
     <div class="product-card__content">
       <h3 class="product-card__title">{{ product.name }}</h3>
       <p class="product-card__description">{{ product.description }}</p>
-      <div class="product-card__info">
+      <div v-if="isSalesEnabled" class="product-card__info">
         <span class="product-card__weight">{{ product.weight }}</span>
         <span class="product-card__price">{{ product.price }} ₽</span>
       </div>
 
-      <div v-if="showQuantitySelector" class="quantity-selector">
-        <button
-            class="quantity-btn"
-            @click="quantity = Math.max(1, quantity - 1)"
-            :disabled="quantity <= 1"
-        >
-          −
-        </button>
-        <input
-            v-model.number="quantity"
-            type="number"
-            min="1"
-            class="quantity-input"
-        />
-        <button class="quantity-btn" @click="quantity++">
-          +
-        </button>
-      </div>
+      <!-- Показываем выбор количества и кнопку заказа только если продажи включены -->
+      <div v-if="isSalesEnabled">
+        <div v-if="showQuantitySelector" class="quantity-selector">
+          <button
+              class="quantity-btn"
+              @click="quantity = Math.max(1, quantity - 1)"
+              :disabled="quantity <= 1"
+          >
+            −
+          </button>
+          <input
+              v-model.number="quantity"
+              type="number"
+              min="1"
+              class="quantity-input"
+          />
+          <button class="quantity-btn" @click="quantity++">
+            +
+          </button>
+        </div>
 
-      <Button
-          :disabled="!product.inStock"
-          @click="handleAddToCart"
-      >
-        {{ product.inStock ? 'Заказать' : 'Недоступно' }}
-      </Button>
+        <Button
+            :disabled="!product.inStock"
+            @click="handleAddToCart"
+        >
+          {{ product.inStock ? 'Заказать' : 'Недоступно' }}
+        </Button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +49,7 @@ import { ref } from 'vue'
 import type { Product } from '../model/types'
 import Button from '@/shared/ui/Button.vue'
 import { useCart } from '@/entities/cart/model/useCart'
+import { useFeatures } from '@/shared/composables/useFeatures'
 
 interface Props {
   product: Product
@@ -53,16 +57,17 @@ interface Props {
 
 const { product } = defineProps<Props>()
 
+const { isFeatureEnabled } = useFeatures()
 const quantity = ref(1)
 const showQuantitySelector = ref(false)
 const { addToCart } = useCart()
+
+const isSalesEnabled = isFeatureEnabled('SALES_ENABLED')
 
 const handleAddToCart = () => {
   addToCart(product, quantity.value)
   showQuantitySelector.value = false
   quantity.value = 1
-
-  // Опционально: показать уведомление
   alert(`${product.name} добавлен в корзину!`)
 }
 </script>
