@@ -1,5 +1,5 @@
 <template>
-  <Section title="Наши пасеки">
+  <Section id="map" title="Наши пасеки">
     <div class="map-wrapper">
       <yandex-map
           v-model="map"

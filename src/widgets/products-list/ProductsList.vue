@@ -1,5 +1,5 @@
 <template>
-    <Section title="Наш ассортимент">
+    <Section id="products" title="Наш ассортимент">
       <div class="products-grid">
         <ProductCard v-for="product in products" :key="product.id" :product="product" />
       </div>

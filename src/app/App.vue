@@ -33,6 +33,10 @@
   
   <style lang="scss">
   @import './styles/main.scss';
+
+  html {
+    scroll-behavior: smooth; /* Плавная прокрутка при клике на якорь */
+  }
   
   .header {
     background: #fff;

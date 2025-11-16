@@ -5,6 +5,7 @@
       <Certificates />
       <MapLocation />
       <Contacts />
+      <ScrollToTopButton />
     </div>
   </template>
   
@@ -14,5 +15,6 @@
   import Certificates from '@/widgets/certificates/Certificates.vue'
   import MapLocation from '@/widgets/map-location/MapLocation.vue'
   import Contacts from '@/widgets/contacts/Contacts.vue'
+  import ScrollToTopButton from "@/shared/ui/ScrollToTopButton.vue";
   </script>
   

@@ -1,5 +1,5 @@
 <template>
-    <Section title="Сертификаты качества" dark>
+    <Section id="certificates" title="Сертификаты качества" dark>
       <div class="certificates-grid">
         <CertificateCard v-for="cert in certificates" :key="cert.id" :certificate="cert" />
       </div>
