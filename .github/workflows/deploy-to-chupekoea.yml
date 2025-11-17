@@ -24,6 +24,7 @@ jobs:
               env:
                   VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
                   VITE_SALES_ENABLED: ${{ secrets.VITE_SALES_ENABLED }}
+                  VITE_API_URL: ${{ secrets.VITE_API_URL }}
               run: npm run build
 
             - name: Normalize deploy path
