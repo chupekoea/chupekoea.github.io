@@ -1,0 +1,49 @@
+name: Deploy to chupekoea.ru
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build project
+              env:
+                  VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+              run: npm run build
+
+            - name: Normalize deploy path
+              id: normalize-path
+              run: |
+                  DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}"
+                  if [[ ! "$DEPLOY_PATH" =~ /$ ]]; then
+                      DEPLOY_PATH="${DEPLOY_PATH}/"
+                  fi
+                  echo "normalized_path=${DEPLOY_PATH}" >> $GITHUB_OUTPUT
+
+            - name: Deploy to REG.RU via SFTP
+              uses: SamKirkland/FTP-Deploy-Action@4.3.0
+              with:
+                  server: ${{ secrets.DEPLOY_HOST }}
+                  username: ${{ secrets.DEPLOY_USER }}
+                  password: ${{ secrets.DEPLOY_PASSWORD }}
+                  local-dir: ./dist/
+                  server-dir: ${{ steps.normalize-path.outputs.normalized_path }}
+                  exclude: |
+                      **/.git*
+                      **/.git*/**
+                      **/node_modules/**
+                      **/.DS_Store
