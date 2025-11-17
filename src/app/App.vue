@@ -11,6 +11,7 @@
               <li><a href="#map">Пасеки</a></li>
               <li><a href="#contacts">Контакты</a></li>
             </ul>
+            <Button @click="fetchApiText" class="api-button">Получить текст</Button>
           </nav>
         </Container>
       </header>
@@ -29,6 +30,18 @@
   import Container from '@/shared/ui/Container.vue'
   import HomePage from '@/pages/home/HomePage.vue'
   import CartWidget from "@/widgets/cart/CartWidget.vue";
+  import Button from '@/shared/ui/Button.vue'
+
+  const fetchApiText = async () => {
+    try {
+      const API_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${API_URL}/api/text`)
+      const data = await response.json()
+      alert(data.message)
+    } catch (error) {
+      alert('Ошибка при получении данных: ' + error)
+    }
+  }
   </script>
   
   <style lang="scss">
@@ -74,6 +87,12 @@
       }
     }
   
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .api-button {
     @media (max-width: 768px) {
       display: none;
     }
