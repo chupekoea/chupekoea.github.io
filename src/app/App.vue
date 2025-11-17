@@ -4,7 +4,7 @@
       <header class="header">
         <Container>
           <nav class="nav">
-            <div class="logo">🍯 Пасека "Золотой мёд"</div>
+            <div class="logo">🍯 Пасека Чубаровых"</div>
             <ul class="nav-menu">
               <li><a href="#products">Каталог</a></li>
               <li><a href="#certificates">Сертификаты</a></li>
