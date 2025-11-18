@@ -1,109 +1,225 @@
 <template>
-    <div id="app">
-      <CartWidget />
-      <header class="header">
+  <div id="app">
+    <header class="header">
+      <div class="header__top">
+        <Container>
+          <div class="header__top-content">
+            <span>🐝 20+ лет семейного пчеловодства</span>
+            <span>🌿 Контроль на каждом этапе</span>
+            <span>🚚 Доставка по РФ до 24 часов</span>
+          </div>
+        </Container>
+      </div>
+      <div class="header__main">
         <Container>
           <nav class="nav">
-            <div class="logo">🍯 Пасека Чубаровых"</div>
+            <div class="logo">
+              <span class="logo__icon">🍯</span>
+              Пасека Чубаровых
+            </div>
             <ul class="nav-menu">
               <li><a href="#products">Каталог</a></li>
               <li><a href="#certificates">Сертификаты</a></li>
               <li><a href="#map">Пасеки</a></li>
               <li><a href="#contacts">Контакты</a></li>
             </ul>
-            <Button @click="fetchApiText" class="api-button">Получить текст</Button>
+            <div class="nav-controls">
+              <div class="nav-cta">
+                <Button variant="secondary" class="nav-cta__btn" @click="fetchApiText">Скачать прайс</Button>
+                <Button class="nav-cta__btn" @click="scrollToContacts">Заказать мёд</Button>
+              </div>
+              <CartWidget class="nav-cart" compact />
+            </div>
           </nav>
         </Container>
-      </header>
+      </div>
+    </header>
       <main>
         <HomePage />
       </main>
       <footer class="footer">
         <Container>
-          <p>&copy; 2025 Пасека "Золотой мёд". Натуральный мёд с заботой о качестве.</p>
+          <div class="footer__content">
+            <p>&copy; 2025 Пасека «Золотой мёд». Натуральный мёд с заботой о качестве.</p>
+            <small>ИП Чубаровы · ОГРН 1234567890123 · Мед с сертифицированных пасек Подмосковья</small>
+          </div>
         </Container>
       </footer>
     </div>
   </template>
   
-  <script setup lang="ts">
-  import Container from '@/shared/ui/Container.vue'
-  import HomePage from '@/pages/home/HomePage.vue'
-  import CartWidget from "@/widgets/cart/CartWidget.vue";
-  import Button from '@/shared/ui/Button.vue'
+<script setup lang="ts">
+import Container from '@/shared/ui/Container.vue'
+import HomePage from '@/pages/home/HomePage.vue'
+import CartWidget from "@/widgets/cart/CartWidget.vue";
+import Button from '@/shared/ui/Button.vue'
 
-  const fetchApiText = async () => {
-    try {
-      const API_URL = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${API_URL}/api/text`)
-      const data = await response.json()
-      alert(data.message)
-    } catch (error) {
-      alert('Ошибка при получении данных: ' + error)
-    }
+const fetchApiText = async () => {
+  try {
+    const API_URL = import.meta.env.VITE_API_URL;
+    const response = await fetch(`${API_URL}/api/text`)
+    const data = await response.json()
+    alert(data.message)
+  } catch (error) {
+    alert('Ошибка при получении данных: ' + error)
   }
-  </script>
-  
-  <style lang="scss">
-  @import './styles/main.scss';
+}
 
-  html {
-    scroll-behavior: smooth; /* Плавная прокрутка при клике на якорь */
-  }
+const scrollToContacts = () => {
+  document.querySelector('#contacts')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+</script>
   
-  .header {
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+<style lang="scss">
+@import './styles/main.scss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(25, 15, 1, 0.08);
+
+  &__top {
+    background: linear-gradient(90deg, rgba(247, 192, 102, 0.32), rgba(255, 249, 241, 0));
+    border-bottom: 1px solid rgba(245, 166, 35, 0.25);
   }
-  
-  .nav {
+
+  &__top-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: #f5a623;
-  }
-  
-  .nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 40px;
-  
-    a {
-      color: #2c3e50;
-      font-weight: 500;
-      transition: color 0.3s;
-  
-      &:hover {
-        color: #f5a623;
-      }
-    }
-  
+    gap: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(31, 42, 55, 0.85);
+    padding: 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+
     @media (max-width: 768px) {
-      display: none;
+      flex-direction: column;
+      text-align: center;
     }
   }
 
-  .api-button {
-    @media (max-width: 768px) {
-      display: none;
+  &__main {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(21, 34, 66, 0.05);
+    padding: 16px 0;
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2a37;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+
+  &__icon {
+    font-size: 32px;
+    filter: drop-shadow(0 6px 12px rgba(247, 192, 102, 0.4));
+  }
+}
+
+.nav-menu {
+  display: flex;
+  flex: 1;
+  list-style: none;
+  gap: 32px;
+  justify-content: center;
+
+  a {
+    color: rgba(31, 42, 55, 0.8);
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 6px;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(120deg, #f7c066, #f5a623);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    &:hover {
+      color: #f5a623;
+
+      &::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
-  
-  .footer {
-    background: #2c3e50;
-    color: #fff;
-    text-align: center;
-    padding: 40px 0;
-    margin-top: 80px;
+
+  @media (max-width: 900px) {
+    display: none;
   }
-  </style>
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &__btn {
+    min-width: 150px;
+    padding: 10px 20px;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.nav-cart {
+  display: inline-flex;
+}
+
+.footer {
+  background: radial-gradient(circle at top, rgba(247, 192, 102, 0.15), rgba(31, 42, 55, 1));
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  padding: 48px 0;
+  margin-top: 80px;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+  }
+}
+</style>
   

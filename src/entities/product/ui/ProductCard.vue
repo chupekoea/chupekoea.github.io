@@ -74,56 +74,83 @@ const handleAddToCart = () => {
 
 <style scoped lang="scss">
 .product-card {
-  background: #fff;
-  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, #fffaf4, #fff);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(245, 166, 35, 0.15);
+  box-shadow:
+    0 18px 40px rgba(21, 34, 66, 0.08),
+    0 4px 12px rgba(255, 255, 255, 0.8) inset;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) scale(1.01);
+    box-shadow:
+      0 24px 45px rgba(21, 34, 66, 0.12),
+      0 4px 16px rgba(247, 192, 102, 0.4);
   }
 
   &__image-wrapper {
     position: relative;
-    height: 250px;
+    height: 260px;
     overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.25) 100%);
+      pointer-events: none;
+    }
   }
 
   &__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  &:hover &__image {
+    transform: scale(1.05);
   }
 
   &__badge {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    background: rgba(0, 0, 0, 0.7);
+    top: 18px;
+    right: 18px;
+    background: rgba(15, 23, 42, 0.8);
     color: #fff;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   &__content {
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px 28px 32px;
   }
 
   &__title {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 12px;
+    color: #1f2a37;
+    letter-spacing: 0.01em;
+    margin: 0;
   }
 
   &__description {
-    color: #666;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 16px;
+    color: rgba(31, 42, 55, 0.7);
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
     min-height: 48px;
   }
 
@@ -131,63 +158,100 @@ const handleAddToCart = () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 16px;
+    padding-top: 20px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
   }
 
   &__weight {
-    color: #999;
     font-size: 14px;
+    font-weight: 500;
+    color: rgba(31, 42, 55, 0.8);
+    background: rgba(247, 192, 102, 0.15);
+    padding: 6px 14px;
+    border-radius: 999px;
   }
 
   &__price {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
-    color: #f5a623;
+    color: #f7c066;
+    text-shadow: 0 6px 14px rgba(247, 192, 102, 0.45);
+  }
+
+  :deep(.btn) {
+    border-radius: 999px;
+    background: linear-gradient(120deg, #f7c066, #f5a623);
+    box-shadow: 0 14px 28px rgba(245, 166, 35, 0.35);
+    padding: 14px 36px;
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 18px 32px rgba(245, 166, 35, 0.45);
+    }
+
+    &:disabled {
+      box-shadow: none;
+      background: #f1f1f1;
+      color: #9ca3af;
+    }
   }
 }
 
 .quantity-selector {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-  background: #f5f5f5;
-  padding: 8px;
-  border-radius: 6px;
+  gap: 10px;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: inset 0 2px 4px rgba(247, 192, 102, 0.15);
 }
 
 .quantity-btn {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border: none;
-  background: #f5a623;
-  color: #fff;
-  border-radius: 4px;
+  background: #fff;
+  color: #f5a623;
+  border-radius: 50%;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
 
   &:hover:not(:disabled) {
-    background: #e09612;
+    transform: translateY(-2px);
+    background: #fff6eb;
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.35;
     cursor: not-allowed;
+    box-shadow: none;
   }
 }
 
 .quantity-input {
-  width: 50px;
-  padding: 6px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: 64px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 999px;
   text-align: center;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  background: #fffdf8;
+  color: #1f2a37;
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.08);
 
   &:focus {
-    outline: none;
-    border-color: #f5a623;
+    outline: 2px solid rgba(247, 192, 102, 0.5);
   }
 }
 </style>

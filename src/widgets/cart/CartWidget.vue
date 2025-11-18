@@ -1,7 +1,26 @@
 <template>
   <!-- Скрываем всю корзину, если продажи отключены -->
-  <div v-if="isFeatureEnabled('SALES_ENABLED')" class="cart-widget">
-    <button class="cart-btn" @click="isOpen = !isOpen">
+  <div
+      v-if="isFeatureEnabled('SALES_ENABLED')"
+      :class="['cart-widget', { 'cart-widget--compact': compact }]"
+  >
+    <button
+        v-if="compact"
+        class="cart-icon-btn"
+        type="button"
+        @click="isOpen = !isOpen"
+        aria-label="Корзина"
+      >
+      <span class="cart-icon">🛒</span>
+      <span class="cart-count" v-if="itemsCount > 0">{{ itemsCount }}</span>
+      <span class="sr-only">Корзина, товаров {{ itemsCount }}</span>
+    </button>
+    <button
+        v-else
+        class="cart-btn"
+        type="button"
+        @click="isOpen = !isOpen"
+    >
       🛒 Корзина ({{ itemsCount }})
     </button>
 
@@ -75,6 +94,14 @@ import Button from '@/shared/ui/Button.vue'
 import { useCart } from '@/entities/cart/model/useCart'
 import { useFeatures } from '@/shared/composables/useFeatures'
 
+interface Props {
+  compact?: boolean
+}
+
+const { compact } = withDefaults(defineProps<Props>(), {
+  compact: false
+})
+
 const { isFeatureEnabled } = useFeatures()
 const isOpen = ref(false)
 const showCheckoutForm = ref(false)
@@ -89,26 +116,82 @@ const handleClear = () => {
 
 <style scoped lang="scss">
 .cart-widget {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   z-index: 1000;
 }
 
 .cart-btn {
-  padding: 12px 20px;
-  background: #f5a623;
-  color: #fff;
+  padding: 12px 22px;
+  background: linear-gradient(120deg, #f7c066, #f5a623);
+  color: #1f1202;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 16px;
-  transition: background 0.3s;
+  font-weight: 700;
+  font-size: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 12px 24px rgba(245, 166, 35, 0.35);
 
   &:hover {
-    background: #e09612;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 32px rgba(245, 166, 35, 0.45);
   }
+}
+
+.cart-icon-btn {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 16px rgba(31, 42, 55, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(31, 42, 55, 0.2);
+  }
+}
+
+.cart-icon {
+  font-size: 22px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #f04d2c;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 12px rgba(240, 77, 44, 0.35);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 .cart-modal {
@@ -117,23 +200,27 @@ const handleClear = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(12, 15, 23, 0.55);
   display: flex;
   justify-content: flex-end;
   z-index: 1001;
+  backdrop-filter: blur(6px);
 }
 
 .cart-content {
-  background: #fff;
+  background: linear-gradient(165deg, #ffffff, #fff9f1);
   width: 100%;
-  max-width: 450px;
+  max-width: 480px;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  box-shadow: -12px 0 30px rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(247, 192, 102, 0.25);
+  border-radius: 0 0 0 32px;
 
   @media (max-width: 600px) {
     max-width: 100%;
+    border-radius: 0;
   }
 }
 
@@ -141,12 +228,14 @@ const handleClear = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 24px;
+  border-bottom: 1px solid rgba(31, 42, 55, 0.08);
 
   h3 {
     margin: 0;
     font-size: 24px;
+    font-weight: 700;
+    color: #1f2a37;
   }
 }
 
@@ -155,40 +244,44 @@ const handleClear = () => {
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #999;
+  color: #9ca3af;
 
   &:hover {
-    color: #333;
+    color: #f5a623;
   }
 }
 
 .cart-empty {
   text-align: center;
   padding: 60px 20px;
-  color: #999;
+  color: #9ca3af;
   font-size: 16px;
 }
 
 .cart-items {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .cart-item {
   display: flex;
   gap: 12px;
   padding: 16px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 18px;
   align-items: center;
+  border: 1px solid rgba(247, 192, 102, 0.2);
+  box-shadow: 0 18px 30px rgba(31, 42, 55, 0.08);
 
   &__img {
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 16px;
   }
 
   &__info {
@@ -196,41 +289,43 @@ const handleClear = () => {
   }
 
   &__name {
-    margin: 0 0 8px 0;
+    margin: 0 0 6px 0;
     font-size: 16px;
-    color: #2c3e50;
+    font-weight: 600;
+    color: #1f2a37;
   }
 
   &__price {
     margin: 0;
     color: #f5a623;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   &__quantity {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 
     button {
-      width: 24px;
-      height: 24px;
-      border: 1px solid #ddd;
-      background: #fff;
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: #fff7ea;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 50%;
       font-weight: 600;
+      color: #f5a623;
+      box-shadow: 0 6px 16px rgba(31, 42, 55, 0.12);
 
       &:hover {
         background: #f5a623;
         color: #fff;
-        border-color: #f5a623;
       }
     }
   }
 
   &__total {
-    font-weight: 600;
+    font-weight: 700;
     color: #2c3e50;
     min-width: 70px;
     text-align: right;
@@ -239,7 +334,7 @@ const handleClear = () => {
   &__remove {
     background: none;
     border: none;
-    color: #999;
+    color: #cbd5f5;
     cursor: pointer;
     font-size: 18px;
 
@@ -250,24 +345,25 @@ const handleClear = () => {
 }
 
 .cart-footer {
-  padding: 20px;
-  border-top: 2px solid #e0e0e0;
+  padding: 24px;
+  border-top: 1px solid rgba(31, 42, 55, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .cart-total {
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px dashed rgba(31, 42, 55, 0.2);
 }
 
 .total-price {
   color: #f5a623;
-  font-size: 24px;
+  font-size: 26px;
 }
 
 .checkout-btn {
@@ -276,17 +372,15 @@ const handleClear = () => {
 
 .clear-btn {
   padding: 10px;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  color: #666;
+  color: rgba(31, 42, 55, 0.55);
   font-weight: 600;
-  transition: all 0.2s;
+  transition: color 0.2s;
 
   &:hover {
-    background: #ffe0e0;
-    border-color: #f5a623;
+    color: #f5a623;
   }
 }
 </style>

@@ -22,42 +22,75 @@
   })
   </script>
   
-  <style scoped lang="scss">
-  .btn {
-    padding: 14px 32px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  
-    &--primary {
-      background: #f5a623;
-      color: #fff;
-  
-      &:hover:not(:disabled) {
-        background: #e09612;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
-      }
+<style scoped lang="scss">
+.btn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(247, 192, 102, 0.6);
+    outline-offset: 2px;
+  }
+
+  &--primary {
+    background: linear-gradient(120deg, #f7c066, #f5a623 55%, #f29a20);
+    color: #1f1202;
+    box-shadow: 0 18px 32px rgba(245, 166, 35, 0.35);
+
+    &::after {
+      background: rgba(255, 255, 255, 0.25);
     }
-  
-    &--secondary {
-      background: transparent;
-      color: #f5a623;
-      border: 2px solid #f5a623;
-  
-      &:hover:not(:disabled) {
-        background: #f5a623;
-        color: #fff;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 36px rgba(245, 166, 35, 0.45);
+
+      &::after {
+        opacity: 1;
       }
-    }
-  
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
     }
   }
-  </style>
+
+  &--secondary {
+    border: 2px solid rgba(245, 166, 35, 0.4);
+    color: #1f2a37;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    &:hover:not(:disabled) {
+      color: #f5a623;
+      border-color: rgba(245, 166, 35, 0.8);
+      background: #fffaf4;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+</style>
   

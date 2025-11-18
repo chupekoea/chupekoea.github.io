@@ -59,7 +59,7 @@
   .contacts {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+  gap: 48px;
   
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
@@ -71,25 +71,30 @@
       gap: 30px;
     }
   
-    &__form {
-      background: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-  
-    &__form-title {
-      font-size: 28px;
-      font-weight: 600;
-      color: #2c3e50;
-      margin-bottom: 30px;
-    }
+  &__form {
+    background: linear-gradient(145deg, #ffffff, #fff7e8);
+    padding: 40px;
+    border-radius: 28px;
+    box-shadow: 0 35px 60px rgba(31, 42, 55, 0.15);
+    border: 1px solid rgba(247, 192, 102, 0.25);
+  }
+
+  &__form-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1f2a37;
+    margin-bottom: 28px;
+  }
   }
   
   .contact-item {
     display: flex;
     gap: 20px;
     align-items: flex-start;
+  padding: 18px 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 16px 30px rgba(31, 42, 55, 0.08);
   
     &__icon {
       font-size: 32px;
@@ -98,7 +103,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #fff;
+    background: linear-gradient(120deg, #f7c066, #f5a623);
+    color: #fff;
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -127,15 +133,17 @@
   .form-textarea {
     width: 100%;
     padding: 14px 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
+  border: 1px solid rgba(31, 42, 55, 0.15);
+  border-radius: 16px;
     font-size: 16px;
     margin-bottom: 20px;
-    transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: rgba(255, 255, 255, 0.9);
   
     &:focus {
       outline: none;
-      border-color: #f5a623;
+    border-color: #f5a623;
+    box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.15);
     }
   }
   

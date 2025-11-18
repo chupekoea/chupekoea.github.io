@@ -14,10 +14,23 @@
   const products = PRODUCTS
   </script>
 
-  <style scoped lang="scss">
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
+<style scoped lang="scss">
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 10% auto auto 10%;
+    width: 160px;
+    height: 160px;
+    background: rgba(247, 192, 102, 0.15);
+    filter: blur(20px);
+    border-radius: 40px;
+    z-index: -1;
   }
-  </style>
+}
+</style>

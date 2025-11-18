@@ -95,11 +95,16 @@ const focusOnApiary = (apiary: Apiary) => {
 .map-wrapper {
   display: grid;
   grid-template-columns: 1fr 400px;
-  gap: 30px;
+  gap: 32px;
   align-items: start;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 32px;
+  box-shadow: 0 30px 50px rgba(31, 42, 55, 0.12);
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
+    padding: 16px;
   }
 }
 
@@ -122,16 +127,18 @@ const focusOnApiary = (apiary: Apiary) => {
 }
 
 .apiaries-list {
-  background: #f9f9f9;
+  background: #fdf7ee;
   padding: 24px;
-  border-radius: 12px;
+  border-radius: 24px;
   max-height: 600px;
   overflow-y: auto;
+  border: 1px solid rgba(247, 192, 102, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
   &__title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #2c3e50;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2a37;
     margin-bottom: 20px;
   }
 }
@@ -139,10 +146,10 @@ const focusOnApiary = (apiary: Apiary) => {
 .apiary-item {
   margin-bottom: 16px;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    transform: translateX(4px);
+    transform: translateX(6px);
   }
 
   &:last-child {
