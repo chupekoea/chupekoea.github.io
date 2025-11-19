@@ -59,7 +59,7 @@ const fetchApiText = async () => {
     const API_URL = import.meta.env.VITE_API_URL;
     const response = await fetch(`${API_URL}/api/text`)
     const data = await response.json()
-    // alert(data.message)
+    console.log(data.message)
   } catch (error) {
     // alert('Ошибка при получении данных: ' + error)
   }
