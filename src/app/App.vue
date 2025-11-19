@@ -95,7 +95,7 @@ html {
     gap: 16px;
     font-size: 14px;
     font-weight: 600;
-    color: rgba(31, 42, 55, 0.85);
+    color: black;
     padding: 8px 0;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -208,17 +208,34 @@ html {
 }
 
 .footer {
-  background: radial-gradient(circle at top, rgba(247, 192, 102, 0.15), rgba(31, 42, 55, 1));
-  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(160deg, #0f172a 0%, #0b1220 45%, #05070c 100%);
+  color: #fefce8;
   text-align: center;
-  padding: 48px 0;
+  padding: 56px 0 64px;
   margin-top: 80px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 20px 40px rgba(0, 0, 0, 0.45);
 
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    font-size: 14px;
+    gap: 10px;
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.7;
+
+    p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #fef3c7;
+    }
+
+    small {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.82);
+      letter-spacing: 0.01em;
+    }
   }
 }
 </style>

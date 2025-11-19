@@ -3,7 +3,18 @@
       <div class="contacts">
         <div class="contacts__info">
           <div class="contact-item">
-            <div class="contact-item__icon">📞</div>
+            <div class="contact-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path
+                    d="M5.25 3.75h4l1.5 4.5-3 1.5a10.5 10.5 0 0 0 6 6l1.5-3 4.5 1.5v4a2.25 2.25 0 0 1-2.25 2.25A14.25 14.25 0 0 1 3 8.25 2.25 2.25 0 0 1 5.25 6z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div>
               <h4 class="contact-item__title">Телефон</h4>
               <a href="tel:+79001234567" class="contact-item__value">+7 (900) 123-45-67</a>
@@ -11,7 +22,25 @@
           </div>
           
           <div class="contact-item">
-            <div class="contact-item__icon">✉️</div>
+            <div class="contact-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path
+                    d="M3.75 6.75h16.5a1.5 1.5 0 0 1 1.5 1.5v7.5a1.5 1.5 0 0 1-1.5 1.5H3.75a1.5 1.5 0 0 1-1.5-1.5v-7.5a1.5 1.5 0 0 1 1.5-1.5z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linejoin="round"
+                />
+                <path
+                    d="m4.5 8.25 7.5 5.25 7.5-5.25"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div>
               <h4 class="contact-item__title">Email</h4>
               <a href="mailto:honey@example.ru" class="contact-item__value">honey@example.ru</a>
@@ -19,7 +48,24 @@
           </div>
           
           <div class="contact-item">
-            <div class="contact-item__icon">📍</div>
+            <div class="contact-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path
+                    d="M12 12.75a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                />
+                <path
+                    d="M12 2.25a7.5 7.5 0 0 1 7.5 7.5c0 4.5-7.5 12-7.5 12s-7.5-7.5-7.5-12a7.5 7.5 0 0 1 7.5-7.5z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div>
               <h4 class="contact-item__title">Адрес</h4>
               <p class="contact-item__value">Московская область, Луговой район</p>
@@ -27,7 +73,26 @@
           </div>
           
           <div class="contact-item">
-            <div class="contact-item__icon">⏰</div>
+            <div class="contact-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="8.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                />
+                <path
+                    d="M12 7.5v4.5l3 1.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div>
               <h4 class="contact-item__title">Режим работы</h4>
               <p class="contact-item__value">Ежедневно с 9:00 до 20:00</p>
@@ -107,6 +172,12 @@
     color: #fff;
       border-radius: 50%;
       flex-shrink: 0;
+      box-shadow: 0 12px 24px rgba(245, 166, 35, 0.4);
+
+      svg {
+        width: 26px;
+        height: 26px;
+      }
     }
   
     &__title {
