@@ -68,7 +68,7 @@ const handleAddToCart = () => {
   addToCart(product, quantity.value)
   showQuantitySelector.value = false
   quantity.value = 1
-  alert(`${product.name} добавлен в корзину!`)
+  // alert(`${product.name} добавлен в корзину!`)
 }
 </script>
 

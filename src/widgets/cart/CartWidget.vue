@@ -562,6 +562,7 @@ const handleCheckoutSubmit = async () => {
   inset: 0;
   background: rgba(12, 15, 23, 0.55);
   display: flex;
+  height: 100vh;
   justify-content: center;
   align-items: flex-start;
   z-index: 1010;
