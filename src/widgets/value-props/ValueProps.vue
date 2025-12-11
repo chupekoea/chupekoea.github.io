@@ -1,5 +1,5 @@
 <template>
-  <Section id="value" title="Почему наш мёд выбирают чаще" accent>
+  <Section id="value" title="Почему наш мёд выбирают чаще" accent class="value-block">
     <div class="value-props">
       <article
           v-for="prop in props"
@@ -23,6 +23,10 @@ const props = VALUE_PROPS
 </script>
 
 <style scoped lang="scss">
+.value-block {
+  margin-top: 10px;
+}
+
 .value-props {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

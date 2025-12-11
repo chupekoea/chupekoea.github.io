@@ -1,6 +1,6 @@
 <template>
     <Section id="contacts" title="Контакты" dark>
-      <div class="contacts">
+      <div class="contacts" :class="{'contacts--one-column': !isContactFormEnabled}">
         <div class="contacts__info">
           <div class="contact-item">
             <div class="contact-item__icon" aria-hidden="true">
@@ -100,7 +100,7 @@
           </div>
         </div>
   
-        <form class="contacts__form" @submit.prevent="handleSubmit">
+        <form v-if="isContactFormEnabled" class="contacts__form" @submit.prevent="handleSubmit">
           <h3 class="contacts__form-title">Оставьте заявку</h3>
           <input type="text" placeholder="Ваше имя" class="form-input" required />
           <input type="tel" placeholder="Телефон" class="form-input" required />
@@ -114,6 +114,11 @@
   <script setup lang="ts">
   import Section from '@/shared/ui/Section.vue'
   import Button from '@/shared/ui/Button.vue'
+import { computed } from 'vue'
+import { useFeatures } from '@/shared/composables/useFeatures'
+const { isFeatureEnabled } = useFeatures()
+
+  const isContactFormEnabled = computed(() => isFeatureEnabled('CONTACT_FORM_ENABLED'));
   
   const handleSubmit = () => {
     alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.')
@@ -125,6 +130,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
   gap: 48px;
+  
+  &--one-column {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
   
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
