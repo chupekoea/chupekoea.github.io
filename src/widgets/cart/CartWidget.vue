@@ -173,9 +173,7 @@ interface Props {
   compact?: boolean
 }
 
-const { compact } = withDefaults(defineProps<Props>(), {
-  compact: false
-})
+const { compact = false } = defineProps<Props>();
 
 const { isFeatureEnabled } = useFeatures()
 const isOpen = ref(false)

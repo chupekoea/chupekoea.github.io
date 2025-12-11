@@ -2,7 +2,7 @@
   <div id="app">
     <header class="header">
       <div class="header__top">
-        <Container>
+        <Container v-if="false">
           <div class="header__top-content">
             <span>🐝 20+ лет семейного пчеловодства</span>
             <span>🌿 Контроль на каждом этапе</span>
@@ -25,8 +25,8 @@
             </ul>
             <div class="nav-controls">
               <div class="nav-cta">
-                <Button variant="secondary" class="nav-cta__btn" @click="fetchApiText">Скачать прайс</Button>
-                <Button class="nav-cta__btn" @click="scrollToContacts">Заказать мёд</Button>
+                <Button v-if="false" variant="secondary" class="nav-cta__btn" @click="fetchApiText">Скачать прайс</Button>
+                <Button v-if="isSalesEnabled" class="nav-cta__btn" @click="scrollToContacts">Заказать мёд</Button>
               </div>
               <CartWidget class="nav-cart" compact />
             </div>
@@ -53,6 +53,9 @@ import Container from '@/shared/ui/Container.vue'
 import HomePage from '@/pages/home/HomePage.vue'
 import CartWidget from "@/widgets/cart/CartWidget.vue";
 import Button from '@/shared/ui/Button.vue'
+import { useFeatures } from '@/shared/composables/useFeatures'
+
+const { isFeatureEnabled } = useFeatures()
 
 const fetchApiText = async () => {
   try {
@@ -68,6 +71,8 @@ const fetchApiText = async () => {
 const scrollToContacts = () => {
   document.querySelector('#contacts')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
+
+const isSalesEnabled = isFeatureEnabled('SALES_ENABLED')
 </script>
   
 <style lang="scss">
