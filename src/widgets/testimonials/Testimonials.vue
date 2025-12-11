@@ -1,5 +1,5 @@
 <template>
-  <Section id="testimonials" title="Нам доверяют шефы и магазины" dark>
+  <Section v-if="isTestimonialsEnabled" id="testimonials" title="Нам доверяют шефы и магазины" dark>
     <div class="testimonials">
       <article
           v-for="testimonial in testimonials"
@@ -31,8 +31,14 @@
 <script setup lang="ts">
 import Section from '@/shared/ui/Section.vue'
 import { TESTIMONIALS } from '@/shared/lib/constants'
+import { useFeatures } from '@/shared/composables/useFeatures';
+import { computed } from 'vue';
 
 const testimonials = TESTIMONIALS
+
+const {isFeatureEnabled} = useFeatures();
+
+const isTestimonialsEnabled = computed(() => isFeatureEnabled('TESTIMONIALS_ENABLED'))
 </script>
 
 <style scoped lang="scss">
