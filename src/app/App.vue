@@ -25,7 +25,7 @@
             </ul>
             <div class="nav-controls">
               <div class="nav-cta">
-                <Button v-if="false" variant="secondary" class="nav-cta__btn" @click="fetchApiText">Скачать прайс</Button>
+                <Button variant="secondary" class="nav-cta__btn" @click="fetchApiText">Скачать прайс</Button>
                 <Button v-if="isSalesEnabled" class="nav-cta__btn" @click="scrollToContacts">Заказать мёд</Button>
               </div>
               <CartWidget class="nav-cart" compact />

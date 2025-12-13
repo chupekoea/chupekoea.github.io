@@ -20,3 +20,5 @@ app.mount('#app')
 //
 // const fireBaseApp = initializeApp(firebaseConfig)
 // export const functions = getFunctions(fireBaseApp)
+
+// TODO поправить мобильное отображение

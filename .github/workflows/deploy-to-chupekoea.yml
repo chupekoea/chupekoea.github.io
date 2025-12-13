@@ -24,6 +24,8 @@ jobs:
               env:
                   VITE_YANDEX_MAP_API_KEY: ${{ secrets.VITE_YANDEX_MAP_API_KEY }}
                   VITE_SALES_ENABLED: ${{ secrets.VITE_SALES_ENABLED }}
+                  VITE_CONTACT_FORM_ENABLED: ${{ secrets.VITE_CONTACT_FORM_ENABLED }}
+                  VITE_TESTIMONIALS_ENABLED: ${{ secrets.VITE_TESTIMONIALS_ENABLED }}
                   VITE_API_URL: ${{ secrets.VITE_API_URL }}
                   VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
                   VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
