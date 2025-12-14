@@ -8,9 +8,12 @@ import { createYmaps } from "vue-yandex-maps";
 
 const app = createApp(App)
 
-app.use(createYmaps({
-    apikey: import.meta.env.VITE_YANDEX_MAP_API_KEY,
-}))
+app.use(
+    createYmaps({
+        apikey: import.meta.env.VITE_YANDEX_MAP_API_KEY || '',
+        lang: 'ru_RU',
+    })
+)
 
 app.mount('#app')
 //

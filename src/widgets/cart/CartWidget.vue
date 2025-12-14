@@ -329,11 +329,20 @@ const handleCheckoutSubmit = async () => {
     transform: translateY(-2px);
     box-shadow: 0 12px 22px rgba(31, 42, 55, 0.2);
   }
+
+  @media (max-width: 480px) {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 .cart-icon {
   font-size: 22px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 }
 
 .cart-count {
@@ -408,6 +417,14 @@ const handleCheckoutSubmit = async () => {
     font-weight: 700;
     color: #1f2a37;
   }
+
+  @media (max-width: 600px) {
+    padding: 18px 16px;
+
+    h3 {
+      font-size: 20px;
+    }
+  }
 }
 
 .close-btn {
@@ -436,6 +453,11 @@ const handleCheckoutSubmit = async () => {
   display: flex;
   flex-direction: column;
   gap: 14px;
+
+  @media (max-width: 600px) {
+    padding: 16px;
+    gap: 12px;
+  }
 }
 
 .cart-item {
@@ -513,6 +535,61 @@ const handleCheckoutSubmit = async () => {
       color: #f5a623;
     }
   }
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 10px;
+    position: relative;
+
+    &__img {
+      width: 70px;
+      height: 70px;
+    }
+
+    &__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__name {
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    &__price {
+      font-size: 14px;
+    }
+
+    &__quantity {
+      margin-top: 8px;
+      width: 100%;
+
+      button {
+        width: 32px;
+        height: 32px;
+      }
+
+      span {
+        flex: 1;
+        text-align: center;
+      }
+    }
+
+    &__total {
+      position: absolute;
+      top: 12px;
+      right: 40px;
+      min-width: auto;
+      font-size: 15px;
+    }
+
+    &__remove {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+  }
 }
 
 .cart-footer {
@@ -522,6 +599,11 @@ const handleCheckoutSubmit = async () => {
   flex-direction: column;
   gap: 16px;
   background: rgba(255, 255, 255, 0.9);
+
+  @media (max-width: 600px) {
+    padding: 18px 16px;
+    gap: 14px;
+  }
 }
 
 .cart-total {
@@ -530,11 +612,19 @@ const handleCheckoutSubmit = async () => {
   font-size: 16px;
   padding-bottom: 12px;
   border-bottom: 1px dashed rgba(31, 42, 55, 0.2);
+
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
 }
 
 .total-price {
   color: #f5a623;
   font-size: 26px;
+
+  @media (max-width: 600px) {
+    font-size: 22px;
+  }
 }
 
 .checkout-btn {
@@ -579,6 +669,12 @@ const handleCheckoutSubmit = async () => {
   overflow-y: auto;
   max-height: 90vh;
   margin: auto;
+
+  @media (max-width: 600px) {
+    max-width: 100%;
+    border-radius: 20px;
+    max-height: 95vh;
+  }
 }
 
 .checkout-header {
@@ -592,6 +688,14 @@ const handleCheckoutSubmit = async () => {
     margin: 0;
     font-size: 22px;
   }
+
+  @media (max-width: 600px) {
+    padding: 18px 20px;
+
+    h3 {
+      font-size: 20px;
+    }
+  }
 }
 
 .checkout-body {
@@ -599,6 +703,11 @@ const handleCheckoutSubmit = async () => {
   display: flex;
   flex-direction: column;
   gap: 18px;
+
+  @media (max-width: 600px) {
+    padding: 20px 16px 24px;
+    gap: 16px;
+  }
 }
 
 .checkout-items {
@@ -634,6 +743,30 @@ const handleCheckoutSubmit = async () => {
   &__sum {
     color: #f5a623;
     font-size: 16px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 12px 14px;
+    gap: 12px;
+
+    &__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__name {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    &__meta {
+      font-size: 12px;
+    }
+
+    &__sum {
+      font-size: 15px;
+      white-space: nowrap;
+    }
   }
 }
 

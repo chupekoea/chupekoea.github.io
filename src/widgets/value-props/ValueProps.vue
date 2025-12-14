@@ -31,6 +31,16 @@ const props = VALUE_PROPS
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 .value-card {
@@ -66,6 +76,27 @@ const props = VALUE_PROPS
     font-size: 15px;
     line-height: 1.6;
     margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    min-height: auto;
+
+    &__icon {
+      font-size: 28px;
+    }
+
+    &__accent {
+      font-size: 28px;
+    }
+
+    &__title {
+      font-size: 18px;
+    }
+
+    &__description {
+      font-size: 14px;
+    }
   }
 }
 </style>

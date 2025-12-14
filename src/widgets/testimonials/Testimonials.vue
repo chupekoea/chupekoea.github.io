@@ -46,6 +46,16 @@ const isTestimonialsEnabled = computed(() => isFeatureEnabled('TESTIMONIALS_ENAB
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 .testimonial-card {
@@ -111,6 +121,30 @@ const isTestimonialsEnabled = computed(() => isFeatureEnabled('TESTIMONIALS_ENAB
     line-height: 1.7;
     color: #4b5563;
     z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    min-height: auto;
+
+    &__header {
+      img {
+        width: 48px;
+        height: 48px;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+
+    &__quote {
+      font-size: 15px;
+    }
   }
 }
 

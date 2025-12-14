@@ -129,48 +129,63 @@ const { isFeatureEnabled } = useFeatures()
   .contacts {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  gap: 48px;
+    gap: 48px;
   
-  &--one-column {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+    &--one-column {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
   
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
+      gap: 32px;
     }
   
     &__info {
       display: flex;
       flex-direction: column;
       gap: 30px;
+
+      @media (max-width: 768px) {
+        gap: 16px;
+      }
     }
   
-  &__form {
-    background: linear-gradient(145deg, #ffffff, #fff7e8);
-    padding: 40px;
-    border-radius: 28px;
-    box-shadow: 0 35px 60px rgba(31, 42, 55, 0.15);
-    border: 1px solid rgba(247, 192, 102, 0.25);
-  }
+    &__form {
+      background: linear-gradient(145deg, #ffffff, #fff7e8);
+      padding: 40px;
+      border-radius: 28px;
+      box-shadow: 0 35px 60px rgba(31, 42, 55, 0.15);
+      border: 1px solid rgba(247, 192, 102, 0.25);
 
-  &__form-title {
-    font-size: 30px;
-    font-weight: 700;
-    color: #1f2a37;
-    margin-bottom: 28px;
-  }
+      @media (max-width: 768px) {
+        padding: 24px;
+        border-radius: 20px;
+      }
+    }
+
+    &__form-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1f2a37;
+      margin-bottom: 28px;
+
+      @media (max-width: 768px) {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+    }
   }
   
   .contact-item {
     display: flex;
     gap: 20px;
     align-items: flex-start;
-  padding: 18px 22px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 16px 30px rgba(31, 42, 55, 0.08);
+    padding: 18px 22px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 16px 30px rgba(31, 42, 55, 0.08);
   
     &__icon {
       font-size: 32px;
@@ -179,8 +194,8 @@ const { isFeatureEnabled } = useFeatures()
       display: flex;
       align-items: center;
       justify-content: center;
-    background: linear-gradient(120deg, #f7c066, #f5a623);
-    color: #fff;
+      background: linear-gradient(120deg, #f7c066, #f5a623);
+      color: #fff;
       border-radius: 50%;
       flex-shrink: 0;
       box-shadow: 0 12px 24px rgba(245, 166, 35, 0.4);
@@ -209,23 +224,60 @@ const { isFeatureEnabled } = useFeatures()
         color: #f5a623;
       }
     }
+
+    @media (max-width: 768px) {
+      padding: 14px 16px;
+      gap: 16px;
+
+      &__icon {
+        width: 44px;
+        height: 44px;
+
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+
+      &__title {
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      &__value {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      &__value {
+        font-size: 15px;
+        word-break: break-word;
+      }
+    }
   }
   
   .form-input,
   .form-textarea {
     width: 100%;
     padding: 14px 16px;
-  border: 1px solid rgba(31, 42, 55, 0.15);
-  border-radius: 16px;
+    border: 1px solid rgba(31, 42, 55, 0.15);
+    border-radius: 16px;
     font-size: 16px;
     margin-bottom: 20px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  background: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: rgba(255, 255, 255, 0.9);
   
     &:focus {
       outline: none;
-    border-color: #f5a623;
-    box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.15);
+      border-color: #f5a623;
+      box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.15);
+    }
+
+    @media (max-width: 768px) {
+      padding: 12px 14px;
+      font-size: 15px;
+      margin-bottom: 16px;
     }
   }
   

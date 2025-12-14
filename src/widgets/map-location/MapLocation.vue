@@ -1,13 +1,19 @@
 <template>
   <Section id="map" title="Наши пасеки">
     <div class="map-wrapper">
+      <div v-if="mapError" class="map-error">
+        <p>⚠️ Карта временно недоступна</p>
+        <small>Список пасек доступен ниже</small>
+      </div>
       <yandex-map
+          v-else
           v-model="map"
           :settings="settings"
           width="100%"
           height="600px"
           :zoom="9"
           :center="centerCoordinates"
+          @error="handleMapError"
       >
         <yandex-map-default-scheme-layer />
         <yandex-map-default-features-layer />
@@ -52,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue'
+import { ref, shallowRef, onErrorCaptured } from 'vue'
 import {
   YandexMap,
   YandexMapDefaultSchemeLayer,
@@ -69,6 +75,7 @@ import type { Apiary } from '@/entities/apiary/model/types'
 
 const apiaries = APIARIES
 const map = shallowRef<null | YMap>(null)
+const mapError = ref(false)
 
 // Центр карты - средняя точка между пасеками
 const centerCoordinates = ref<[number, number]>([55.7558, 37.6173])
@@ -80,15 +87,34 @@ const settings = {
   },
 }
 
+const handleMapError = () => {
+  mapError.value = true
+  console.warn('Карта не загрузилась, показываем только список пасек')
+}
+
 const focusOnApiary = (apiary: Apiary) => {
   if (map.value) {
-    map.value.setLocation({
-      center: apiary.coordinates,
-      zoom: 12,
-      duration: 500,
-    })
+    try {
+      map.value.setLocation({
+        center: apiary.coordinates,
+        zoom: 12,
+        duration: 500,
+      })
+    } catch (error) {
+      console.error('Ошибка при фокусировке на пасеку:', error)
+    }
   }
 }
+
+// Обработка ошибок компонента
+onErrorCaptured((err) => {
+  if (err.message?.includes('Yandex Map') || err.message?.includes('ymaps')) {
+    mapError.value = true
+    console.warn('Ошибка загрузки карты:', err.message)
+    return false // Останавливаем распространение ошибки
+  }
+  return true
+})
 </script>
 
 <style scoped lang="scss">
@@ -105,6 +131,65 @@ const focusOnApiary = (apiary: Apiary) => {
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
     padding: 16px;
+    gap: 20px;
+    border-radius: 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  :deep(.ymap-container) {
+    border-radius: 16px;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: 400px !important;
+    }
+
+    @media (max-width: 480px) {
+      height: 350px !important;
+    }
+  }
+}
+
+.map-error {
+  background: linear-gradient(135deg, #fff9f1 0%, #fff 100%);
+  border: 2px dashed rgba(247, 192, 102, 0.3);
+  border-radius: 16px;
+  padding: 60px 40px;
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  p {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2a37;
+    margin: 0;
+  }
+
+  small {
+    font-size: 15px;
+    color: rgba(31, 42, 55, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 20px;
+    min-height: 300px;
+
+    p {
+      font-size: 18px;
+    }
+
+    small {
+      font-size: 14px;
+    }
   }
 }
 
@@ -118,12 +203,20 @@ const focusOnApiary = (apiary: Apiary) => {
     &:hover {
       transform: scale(1.2);
     }
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 }
 
 .map-popup {
   min-width: 280px;
   max-width: 350px;
+
+  @media (max-width: 480px) {
+    min-width: 240px;
+  }
 }
 
 .apiaries-list {
@@ -141,6 +234,25 @@ const focusOnApiary = (apiary: Apiary) => {
     color: #1f2a37;
     margin-bottom: 20px;
   }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    max-height: none;
+    border-radius: 16px;
+
+    &__title {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+
+    &__title {
+      font-size: 18px;
+    }
+  }
 }
 
 .apiary-item {
@@ -154,6 +266,14 @@ const focusOnApiary = (apiary: Apiary) => {
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 12px;
+
+    &:hover {
+      transform: translateX(4px);
+    }
   }
 }
 </style>

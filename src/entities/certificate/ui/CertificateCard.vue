@@ -63,6 +63,44 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
+
+  @media (max-width: 768px) {
+    border-radius: 16px;
+
+    &__image {
+      height: 220px;
+    }
+
+    &__content {
+      padding: 18px;
+    }
+
+    &__title {
+      font-size: 18px;
+    }
+
+    &__date {
+      font-size: 13px;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__image {
+      height: 200px;
+    }
+
+    &__content {
+      padding: 16px;
+    }
+
+    &__title {
+      font-size: 17px;
+    }
+  }
 }
 </style>
   

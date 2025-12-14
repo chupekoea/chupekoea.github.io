@@ -15,13 +15,18 @@
           <nav class="nav">
             <div class="logo">
               <span class="logo__icon">🍯</span>
-              Пасека Чубаровых
+              <span class="logo__text">Пасека Чубаровых</span>
             </div>
-            <ul class="nav-menu">
-              <li><a href="#products">Каталог</a></li>
-              <li><a href="#certificates">Сертификаты</a></li>
-              <li><a href="#map">Пасеки</a></li>
-              <li><a href="#contacts">Контакты</a></li>
+            <div v-if="mobileMenuOpen" class="nav-menu-backdrop" @click="closeMobileMenu"></div>
+            <ul class="nav-menu" :class="{ 'nav-menu--open': mobileMenuOpen }">
+              <li><a href="#products" @click="closeMobileMenu">Каталог</a></li>
+              <li><a href="#certificates" @click="closeMobileMenu">Сертификаты</a></li>
+              <li><a href="#map" @click="closeMobileMenu">Пасеки</a></li>
+              <li><a href="#contacts" @click="closeMobileMenu">Контакты</a></li>
+              <li class="nav-menu__mobile-actions">
+                <Button variant="secondary" class="nav-cta__btn" @click="fetchApiText">Скачать прайс</Button>
+                <Button v-if="isSalesEnabled" class="nav-cta__btn" @click="handleMobileOrder">Заказать мёд</Button>
+              </li>
             </ul>
             <div class="nav-controls">
               <div class="nav-cta">
@@ -29,6 +34,11 @@
                 <Button v-if="isSalesEnabled" class="nav-cta__btn" @click="scrollToContacts">Заказать мёд</Button>
               </div>
               <CartWidget class="nav-cart" compact />
+              <button class="burger-menu" :class="{ 'burger-menu--open': mobileMenuOpen }" @click="toggleMobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
             </div>
           </nav>
         </Container>
@@ -49,6 +59,7 @@
   </template>
   
 <script setup lang="ts">
+import { ref } from 'vue'
 import Container from '@/shared/ui/Container.vue'
 import HomePage from '@/pages/home/HomePage.vue'
 import CartWidget from "@/widgets/cart/CartWidget.vue";
@@ -56,6 +67,7 @@ import Button from '@/shared/ui/Button.vue'
 import { useFeatures } from '@/shared/composables/useFeatures'
 
 const { isFeatureEnabled } = useFeatures()
+const mobileMenuOpen = ref(false)
 
 const fetchApiText = async () => {
   try {
@@ -72,6 +84,28 @@ const scrollToContacts = () => {
   document.querySelector('#contacts')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+  if (mobileMenuOpen.value) {
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+    document.documentElement.style.overflow = ''
+  }
+}
+
+const closeMobileMenu = () => {
+  mobileMenuOpen.value = false
+  document.body.style.overflow = ''
+  document.documentElement.style.overflow = ''
+}
+
+const handleMobileOrder = () => {
+  closeMobileMenu()
+  scrollToContacts()
+}
+
 const isSalesEnabled = isFeatureEnabled('SALES_ENABLED')
 </script>
   
@@ -82,10 +116,20 @@ html {
   scroll-behavior: smooth;
 }
 
+#app {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+main {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   backdrop-filter: blur(12px);
   box-shadow: 0 12px 30px rgba(25, 15, 1, 0.08);
 
@@ -115,6 +159,14 @@ html {
     background: rgba(255, 255, 255, 0.92);
     border-bottom: 1px solid rgba(21, 34, 66, 0.05);
     padding: 16px 0;
+
+    @media (max-width: 768px) {
+      padding: 12px 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    box-shadow: 0 8px 20px rgba(25, 15, 1, 0.06);
   }
 }
 
@@ -125,6 +177,14 @@ html {
   gap: 24px;
   flex-wrap: nowrap;
   min-width: 0;
+
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 12px;
+  }
 }
 
 .logo {
@@ -141,6 +201,39 @@ html {
   &__icon {
     font-size: 32px;
     filter: drop-shadow(0 6px 12px rgba(247, 192, 102, 0.4));
+  }
+
+  &__text {
+    @media (max-width: 480px) {
+      font-size: 16px;
+      letter-spacing: 0.04em;
+    }
+  }
+}
+
+.nav-menu-backdrop {
+  display: none;
+
+  @media (max-width: 900px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -181,8 +274,72 @@ html {
     }
   }
 
-  @media (max-width: 900px) {
+  &__mobile-actions {
     display: none;
+  }
+
+  @media (max-width: 900px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: max-content;
+    background: linear-gradient(180deg, #ffffff 0%, #fffbf5 100%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: max(80px, env(safe-area-inset-top) + 60px) max(40px, env(safe-area-inset-right) + 20px) max(40px, env(safe-area-inset-bottom) + 20px) max(40px, env(safe-area-inset-left) + 20px);
+    z-index: 9999;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.4s ease, visibility 0.4s;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &--open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    li {
+      width: 100%;
+      text-align: center;
+    }
+
+    a {
+      font-size: 24px;
+      color: #1f2a37;
+      display: block;
+      padding: 16px 24px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(247, 192, 102, 0.15);
+        color: #f5a623;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+
+    &__mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 24px;
+
+      .nav-cta__btn {
+        width: 100%;
+        min-width: auto;
+      }
+    }
   }
 }
 
@@ -210,6 +367,51 @@ html {
 
 .nav-cart {
   display: inline-flex;
+
+  @media (max-width: 480px) {
+    :deep(.cart-widget) {
+      font-size: 14px;
+    }
+  }
+}
+
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10000;
+  position: relative;
+
+  span {
+    width: 28px;
+    height: 3px;
+    background: #1f2a37;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  &--open {
+    span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+
+  @media (max-width: 900px) {
+    display: flex;
+  }
 }
 
 .footer {
@@ -240,6 +442,24 @@ html {
       font-size: 15px;
       color: rgba(255, 255, 255, 0.82);
       letter-spacing: 0.01em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 0 48px;
+    margin-top: 60px;
+
+    &__content {
+      padding: 0 20px;
+
+      p {
+        font-size: 16px;
+      }
+
+      small {
+        font-size: 13px;
+        line-height: 1.6;
+      }
     }
   }
 }

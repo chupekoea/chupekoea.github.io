@@ -32,5 +32,15 @@
     border-radius: 40px;
     z-index: -1;
   }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 </style>

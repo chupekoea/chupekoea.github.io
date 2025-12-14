@@ -72,5 +72,28 @@ defineProps<Props>()
       box-shadow: 0 8px 16px rgba(245, 166, 35, 0.25);
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+
+    &__title {
+      font-size: clamp(26px, 6vw, 36px);
+      margin-bottom: 40px;
+
+      &::after {
+        width: 80px;
+        height: 5px;
+        margin: 16px auto 0;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 48px 0;
+
+    &__title {
+      margin-bottom: 32px;
+    }
+  }
 }
 </style>

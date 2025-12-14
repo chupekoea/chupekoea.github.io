@@ -57,6 +57,66 @@
 <style scoped lang="scss">
 .hero-carousel {
   margin-top: -120px;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
+
+  // // Стили для элементов управления каруселью
+  // :deep(.carousel) {
+  //   overflow: hidden;
+  //   width: 100%;
+  // }
+
+  // :deep(.carousel__track) {
+  //   overflow: hidden;
+  // }
+
+  // :deep(.carousel__viewport) {
+  //   overflow: hidden;
+  //   width: 100%;
+  // }
+
+  // :deep(.carousel__prev),
+  // :deep(.carousel__next) {
+  //   @media (max-width: 768px) {
+  //     width: 40px;
+  //     height: 40px;
+  //     background: rgba(255, 255, 255, 0.9);
+  //     border-radius: 50%;
+      
+  //     svg {
+  //       width: 20px;
+  //       height: 20px;
+  //     }
+  //   }
+
+  //   @media (max-width: 480px) {
+  //     width: 36px;
+  //     height: 36px;
+
+  //     svg {
+  //       width: 18px;
+  //       height: 18px;
+  //     }
+  //   }
+  // }
+
+  // :deep(.carousel__pagination) {
+  //   @media (max-width: 768px) {
+  //     padding: 12px 0;
+  //     gap: 8px;
+  //   }
+  // }
+
+  // :deep(.carousel__pagination-button) {
+  //   @media (max-width: 768px) {
+  //     width: 8px;
+  //     height: 8px;
+  //   }
+  // }
 }
 
 .hero-slide {
@@ -124,6 +184,18 @@
     gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 36px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      width: 100%;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+
+      :deep(.btn) {
+        width: 100%;
+      }
+    }
   }
 
   &__badges {
@@ -158,24 +230,159 @@
 }
 
 @media (max-width: 768px) {
-  .hero-carousel {
-    margin-top: -40px;
-  }
-
   .hero-slide {
-    height: auto;
+    height: 100vh;
+    max-height: 650px;
+    min-height: 550px;
+    background-position: 40% center;
 
     &__overlay {
-      padding: 120px 0 40px;
+      padding: 100px 0 40px;
+      background: linear-gradient(120deg, rgba(21, 24, 36, 0.92), rgba(255, 197, 115, 0.4));
     }
 
     &__content {
       max-width: 100%;
       text-align: center;
+      padding: 20px 0 40px;
+    }
+
+    &__eyebrow {
+      font-size: 11px;
+      padding: 6px 14px;
+      letter-spacing: 0.15em;
+    }
+
+    &__title {
+      font-size: clamp(28px, 8vw, 42px);
+      margin-bottom: 16px;
+    }
+
+    &__subtitle {
+      font-size: 16px;
+      margin-bottom: 24px;
+      padding: 0 10px;
     }
 
     &__actions {
       justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+
+      :deep(.btn) {
+        font-size: 14px;
+        padding: 12px 24px;
+      }
+    }
+
+    &__badges {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+  }
+
+  .hero-badge {
+    padding: 12px 8px;
+
+    &__value {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    &__label {
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-slide {
+    height: 100vh;
+    max-height: 600px;
+    min-height: 500px;
+
+    &__overlay {
+      padding: 80px 0 30px;
+    }
+
+    &__content {
+      padding: 15px 0 30px;
+    }
+
+    &__badges {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+  }
+
+  .hero-badge {
+    padding: 14px 16px;
+
+    &__value {
+      font-size: 24px;
+    }
+
+    &__label {
+      font-size: 11px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-carousel {
+    margin-top: -70px;
+  }
+
+  .hero-slide {
+    height: 100vh;
+    max-height: 550px;
+    min-height: 480px;
+
+    &__overlay {
+      padding: 70px 0 25px;
+    }
+
+    &__content {
+      padding: 10px 0 25px;
+    }
+
+    &__title {
+      font-size: clamp(24px, 8vw, 36px);
+    }
+
+    &__subtitle {
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    &__actions {
+      margin-bottom: 20px;
+      gap: 10px;
+
+      :deep(.btn) {
+        font-size: 13px;
+        padding: 10px 20px;
+      }
+    }
+
+    &__badges {
+      max-width: 260px;
+      gap: 8px;
+    }
+  }
+
+  .hero-badge {
+    padding: 12px 14px;
+
+    &__value {
+      font-size: 22px;
+    }
+
+    &__label {
+      font-size: 10px;
     }
   }
 }

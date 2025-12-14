@@ -59,6 +59,31 @@ const { apiary} = defineProps<Props>()
     flex-wrap: wrap;
     gap: 8px;
   }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    border-radius: 16px;
+
+    &__title {
+      font-size: 17px;
+    }
+
+    &__area {
+      font-size: 13px;
+    }
+
+    &__description {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 14px;
+
+    &__title {
+      font-size: 16px;
+    }
+  }
 }
 
 .honey-tag {
@@ -71,5 +96,10 @@ const { apiary} = defineProps<Props>()
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+
+  @media (max-width: 768px) {
+    padding: 3px 10px;
+    font-size: 11px;
+  }
 }
 </style>

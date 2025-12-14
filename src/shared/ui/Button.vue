@@ -91,6 +91,25 @@
     cursor: not-allowed;
     box-shadow: none;
   }
+
+  @media (max-width: 768px) {
+    padding: 12px 24px;
+    font-size: 14px;
+
+    &--primary {
+      box-shadow: 0 12px 24px rgba(245, 166, 35, 0.3);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 28px rgba(245, 166, 35, 0.4);
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 11px 20px;
+    font-size: 14px;
+  }
 }
 </style>
   
