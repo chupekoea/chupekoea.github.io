@@ -71,10 +71,9 @@ const mobileMenuOpen = ref(false)
 
 const fetchApiText = async () => {
   try {
-    const API_URL = import.meta.env.VITE_API_URL;
-    const response = await fetch(`${API_URL}/api/text`)
+    const response = await fetch(`/api/text`)
     const data = await response.json()
-    console.log(data.message)
+    alert(data.message)
   } catch (error) {
     // alert('Ошибка при получении данных: ' + error)
   }
