@@ -21,6 +21,7 @@ pnpm-debug.log*
 .vite/
 .idea/
 .vscode/
+root*
 *.sublime-workspace
 *.sublime-project
 
